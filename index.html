@@ -214,7 +214,7 @@
 </head>
 <body>
   <div class="card">
-    <h1>Quiz da <span>Tontinha</span> 🖤️💛</h1>
+    <h1>Quiz para a <span>Tontinha</span> 🖤️💛</h1>
     <p class="subtitle">Um conjunto de perguntas pra ver se você ainda pode ficar comigo</p>
 
     <!-- TELA INÍCIO -->
@@ -399,8 +399,8 @@
         botaoClicado.classList.add('errada');
         botoes[p.correta].classList.add('certa');
         document.getElementById('feedback').textContent = p.brincadeira
-          ? ` ${p.brincadeira}`
-          : '❌ Errou!';
+          ? `${p.brincadeira}`
+          : '';
       }
 
       document.getElementById('btn-proximo').style.display = 'block';
