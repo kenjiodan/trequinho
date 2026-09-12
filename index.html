@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <style>
+        :root {
+    --amarelo: #F4A825;
+    --amarelo-claro: #FFE9B3;
+    --amarelo-suave: #FFF6E0;
+    --marrom: #6B4226;
+    --marrom-escuro: #4A2C17;
+    --marrom-claro: #A9744F;
+    --branco: #FFFDF8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+    background-image: url(Estrelinha\ 3.png);
+    background-size: cover;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 98vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: var(--marrom-escuro);
+    }
+
+    .card {
+    background: var(--branco);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(107, 66, 38, 0.2);
+    max-width: 520px;
+    width: 100%;
+    padding: 30px;
+    border: 3px solid var(--amarelo);
+    }
+
+    h1 {
+    text-align: center;
+    color: var(--marrom-escuro);
+    margin-top: 0;
+    font-size: 1.6rem;
+    }
+
+    h1 span { color: var(--amarelo); }
+
+    .subtitle {
+    text-align: center;
+    color: var(--marrom-claro);
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    }
+
+    /* Tela inicial */
+    #tela-inicio button, #tela-jogo button, #tela-fim button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.15s, background 0.2s;
+    }
+
+    .btn-principal {
+    background: var(--amarelo);
+    color: var(--marrom-escuro);
+    }
+    .btn-principal:hover { background: #e59a1c; transform: translateY(-2px); }
+
+    .btn-secundario {
+    background: var(--branco);
+    color: var(--marrom);
+    border: 2px solid var(--marrom-claro) !important;
+    }
+    .btn-secundario:hover { background: var(--amarelo-suave); }
+
+    /* Editor de perguntas */
+    #editor {
+    display: none;
+    }
+
+    .campo {
+    margin-bottom: 14px;
+    }
+
+    .campo label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--marrom);
+    margin-bottom: 4px;
+    }
+
+    .campo input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--amarelo-claro);
+    background: var(--amarelo-suave);
+    font-size: 0.95rem;
+    color: var(--marrom-escuro);
+    }
+
+    .campo input:focus {
+    outline: none;
+    border-color: var(--amarelo);
+    }
+
+    .opcoes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    }
+
+    .lista-perguntas {
+    max-height: 180px;
+    overflow-y: auto;
+    margin: 15px 0;
+    border-top: 2px dashed var(--amarelo-claro);
+    padding-top: 10px;
+    }
+
+    .item-pergunta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--amarelo-suave);
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    }
+
+    .item-pergunta button {
+    background: none;
+    border: none;
+    color: var(--marrom-claro);
+    cursor: pointer;
+    font-size: 1rem;
+    }
+
+    /* Tela de jogo */
+    #tela-jogo { display: none; }
+
+    .progresso {
+    text-align: center;
+    color: var(--marrom-claro);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    }
+
+    .pergunta-texto {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 15px 0 20px;
+    color: var(--marrom-escuro);
+    }
+
+    .opcao-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    border: 2px solid var(--amarelo-claro);
+    background: var(--branco);
+    color: var(--marrom-escuro);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.15s;
+    }
+
+    .opcao-btn:hover { background: var(--amarelo-suave); }
+    .opcao-btn.certa { background: #C7E8B0; border-color: #7CBF5B; }
+    .opcao-btn.errada { background: #F3B7B0; border-color: #D9695F; }
+
+    .feedback {
+    text-align: center;
+    font-weight: 600;
+    min-height: 24px;
+    margin: 10px 0;
+    color: var(--marrom);
+    }
+
+    /* Tela final */
+    #tela-fim { display: none; text-align: center; }
+
+    .resultado-numero {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: var(--amarelo);
+    margin: 10px 0;
+    }
+
+    .rodape {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--marrom-claro);
+    margin-top: 20px;
+    }
+    .oculto { display: none !important; }
+  </style>
+  <title>Segredo</title>
+</head>
+<body>
+  <div class="card">
+    <h1>Quiz da <span>Tontinha</span> 🖤️💛</h1>
+    <p class="subtitle">Um conjunto de perguntas pra ver se você ainda pode ficar comigo</p>
+
+    <!-- TELA INÍCIO -->
+    <div id="tela-inicio">
+      <button class="btn-principal" onclick="iniciarJogo()">🎮 Jogar</button>
+    </div>
+
+    <!-- TELA JOGO -->
+    <div id="tela-jogo">
+      <div class="progresso" id="progresso"></div>
+      <div class="pergunta-texto" id="pergunta-texto"></div>
+      <div id="opcoes-container"></div>
+      <div class="feedback" id="feedback"></div>
+      <button id="btn-proximo" class="btn-principal" style="display:none;" onclick="proximaPergunta()">Próxima ➡️</button>
+    </div>
+
+    <!-- TELA FIM -->
+    <div id="tela-fim">
+      <p>Eu espero que tenha acertado pelo menos uma</p>
+      <div class="resultado-numero" id="resultado-numero"></div>
+      <p id="resultado-mensagem"></p>
+      <button class="btn-principal" onclick="reiniciar()">🔁 Jogar de novo</button>
+      <button class="btn-secundario" onclick="voltarInicio()">🏠 Início</button>
+
+      <!-- 👇 Troque "arquivo.pdf" pelo nome/caminho do arquivo que você vai inserir depois.
+           O arquivo precisa estar na mesma pasta que este index.html (ou informe o caminho completo). -->
+      <a id="btn-download" href="Estrelinha.png" download class="btn-principal"
+         style="display:block; text-decoration:none; text-align:center; margin-top:10px;">
+        📥 Baixar aqui meu pedido pra você
+      </a>
+    </div>
+
+    <p class="rodape">Feito por um cara que não é muito bom nisso..</p>
+  </div>
+
+  <script>
+    // Perguntas padrão de exemplo — edite ou apague todas!
+    let perguntas = [
+      {
+        pergunta: "Qual é a espécie de serpente mais legal da terra?",
+        opcoes: ["Epicrates cenchria", "Python regius", "Boa constrictor", "Lachesis muta"],
+        correta: 1,
+        brincadeira: "não fale mais comigo, por obséquio meu amor"
+      },
+      {
+        pergunta: "Qual a coisa que eu mais gosto em vc?",
+        opcoes: ["seu inglês C2", "seu cabelo curtinho", "sua linda risada", "sua *censurado*"],
+        correta: 2,
+        brincadeira: "Podia ser de fato a letra D... mas ainda não me foi mostrada"
+      },
+      {
+        pergunta: "(100/2 - 30) x 6 + 7 - 100",
+        opcoes: ["22", "14", "13", "27"],
+        correta: 3,
+        brincadeira: "Questão elementar dessa e você erra?? eu te amo mas ai é fogo"
+      },
+      {
+        pergunta: "Qual o planeta que mais me lembra de você",
+        opcoes: ["Terra", "Netuno", "Vênus", "Marte"],
+        correta: 2,
+        brincadeira: "me esquece amor, namoral"
+      },
+      {
+        pergunta: "Qual o nome da camada de tecido no qual o blástocisto se fixa dando início oficial a gavidez?",
+        opcoes: ["Útero", "Epiderme", "Endométrio", "Mórula"],
+        correta: 2,
+        brincadeira: "Não sabe do próprio corpo??? top realmente..."
+      },
+      {
+        pergunta: "Qual é o pior alimento de todos???",
+        opcoes: ["Pipoca", "Chá", "Doce de leite", "Café"],
+        correta: 0,
+        brincadeira: "top 3 pessoas que esperam comer nada e ainda assim continuar viva até a próxima semana"
+      },
+      {
+        pergunta: "Qual a coisa que eu mais me orgulho nos últimos meses",
+        opcoes: ["Ter continuado vivo", "Ter descoberto como cuidar do cabelo", "Ter 14 cm", "Ter conhecido a estrelinha e ter lhe pedido algo muito importante..."],
+        correta: 3,
+        brincadeira: "tá de sacanagem né???"
+      }
+
+    ];
+
+    let indiceAtual = 0;
+    let acertos = 0;
+
+    function abrirEditor() {
+      document.getElementById('editor').style.display = 'block';
+      renderizarLista();
+    }
+
+    function fecharEditor() {
+      document.getElementById('editor').style.display = 'none';
+    }
+
+    function adicionarPergunta() {
+      const p = document.getElementById('input-pergunta').value.trim();
+      const a = document.getElementById('input-a').value.trim();
+      const b = document.getElementById('input-b').value.trim();
+      const c = document.getElementById('input-c').value.trim();
+      const d = document.getElementById('input-d').value.trim();
+      const correta = document.getElementById('input-correta').value.trim().toUpperCase();
+      const brincadeira = document.getElementById('input-brincadeira').value.trim();
+
+      if (!p || !a || !b || !c || !d || !['A','B','C','D'].includes(correta)) {
+        alert('Preencha a pergunta, as 4 opções e a letra correta (A, B, C ou D)!');
+        return;
+      }
+
+      const mapa = { A: 0, B: 1, C: 2, D: 3 };
+
+      perguntas.push({
+        pergunta: p,
+        opcoes: [a, b, c, d],
+        correta: mapa[correta],
+        brincadeira: brincadeira || ''
+      });
+
+      ['input-pergunta','input-a','input-b','input-c','input-d','input-correta','input-brincadeira']
+        .forEach(id => document.getElementById(id).value = '');
+
+      renderizarLista();
+    }
+
+    function removerPergunta(i) {
+      perguntas.splice(i, 1);
+      renderizarLista();
+    }
+
+    function renderizarLista() {
+      const lista = document.getElementById('lista-perguntas');
+      lista.innerHTML = '';
+      perguntas.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'item-pergunta';
+        div.innerHTML = `<span>${i + 1}. ${p.pergunta}</span> <button onclick="removerPergunta(${i})">🗑️</button>`;
+        lista.appendChild(div);
+      });
+    }
+
+    function iniciarJogo() {
+      if (perguntas.length === 0) {
+        alert('Adicione ao menos uma pergunta antes de jogar!');
+        return;
+      }
+      indiceAtual = 0;
+      acertos = 0;
+      document.getElementById('tela-inicio').style.display = 'none';
+      document.getElementById('tela-jogo').style.display = 'block';
+      document.getElementById('tela-fim').style.display = 'none';
+      mostrarPergunta();
+    }
+
+    function mostrarPergunta() {
+      const p = perguntas[indiceAtual];
+      document.getElementById('progresso').textContent = `Pergunta ${indiceAtual + 1} de ${perguntas.length}`;
+      document.getElementById('pergunta-texto').textContent = p.pergunta;
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('btn-proximo').style.display = 'none';
+
+      const container = document.getElementById('opcoes-container');
+      container.innerHTML = '';
+      p.opcoes.forEach((op, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'opcao-btn';
+        btn.textContent = op;
+        btn.onclick = () => responder(i, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function responder(i, botaoClicado) {
+      const p = perguntas[indiceAtual];
+      const botoes = document.querySelectorAll('.opcao-btn');
+      botoes.forEach(b => b.onclick = null);
+
+      if (i === p.correta) {
+        botaoClicado.classList.add('certa');
+        acertos++;
+        document.getElementById('feedback').textContent = '✅ Acertou!';
+      } else {
+        botaoClicado.classList.add('errada');
+        botoes[p.correta].classList.add('certa');
+        document.getElementById('feedback').textContent = p.brincadeira
+          ? `❌ Errou! Desafio: ${p.brincadeira}`
+          : '❌ Errou!';
+      }
+
+      document.getElementById('btn-proximo').style.display = 'block';
+    }
+
+    function proximaPergunta() {
+      indiceAtual++;
+      if (indiceAtual < perguntas.length) {
+        mostrarPergunta();
+      } else {
+        mostrarResultado();
+      }
+    }
+
+    function mostrarResultado() {
+      document.getElementById('tela-jogo').style.display = 'none';
+      document.getElementById('tela-fim').style.display = 'block';
+      document.getElementById('resultado-numero').textContent = `${acertos} / ${perguntas.length}`;
+
+      let msg = '';
+      const pct = acertos / perguntas.length;
+      if (pct === 1) msg = 'Espero que tenha acertado pelo menos uma';
+      else if (pct >= 0.5) msg = 'Espero que tenha acertado pelo menos uma';
+      else msg = 'Espero que tenha acertado pelo menos uma';
+      document.getElementById('resultado-mensagem').textContent = msg;
+    }
+
+    function reiniciar() {
+      iniciarJogo();
+    }
+
+    function voltarInicio() {
+      document.getElementById('tela-fim').style.display = 'none';
+      document.getElementById('tela-inicio').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
